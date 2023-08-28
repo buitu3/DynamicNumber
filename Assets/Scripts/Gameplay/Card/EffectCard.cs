@@ -59,5 +59,10 @@ namespace DynamicNumber.GamePlay
             CardBG.sprite = UpFlipBG;
             IsUpFlip = true;
         }
+
+        public virtual void ActiveEffect()
+        {
+            
+        }
     }
 }

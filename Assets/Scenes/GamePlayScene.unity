@@ -583,6 +583,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Board: {fileID: 561453008}
   Queue: {fileID: 2004420835}
+  PlayerBetText: {fileID: 846572195}
 --- !u!1 &846572193
 GameObject:
   m_ObjectHideFlags: 0

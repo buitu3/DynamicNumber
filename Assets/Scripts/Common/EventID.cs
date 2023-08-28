@@ -11,6 +11,8 @@ namespace DynamicNumber
         public const string ON_CARD_FLIPPED = "ON_CARD_FLIPPED";
 
         public const string ON_CARD_QUEUE_FULL = "ON_CARD_QUEUE_FULL";
+
+        public const string ON_PLAYER_POINT_CHANGE = "ON_PLAYER_POINT_CHANGE";
     }
 }
 

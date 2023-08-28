@@ -15,6 +15,8 @@ namespace DynamicNumber
 
         public const int VALUE_CARD_RANGE_MIN = 2;
         public const int VALUE_CARD_RANGE_MAX = 5;
+
+        public const float VALUE_CARD_PERCENTAGE = 0.75f;
     }
 
 }

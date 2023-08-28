@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace DynamicNumber.GamePlay
 {
@@ -8,8 +9,11 @@ namespace DynamicNumber.GamePlay
     {
         [SerializeField]
         private RectTransform CardContainer;
+        
         [SerializeField]
-        private ValueCard CardPrefab;
+        private ValueCard ValueCardPrefab;
+
+        [SerializeField] private EffectCard SpecialCardPrefab;
 
         private RectTransform CardPrefabRect;
         private Vector2 BoardStartPos;
@@ -19,7 +23,7 @@ namespace DynamicNumber.GamePlay
 
         private void Start()
         {
-            CardPrefabRect = CardPrefab.GetComponent<RectTransform>();
+            CardPrefabRect = ValueCardPrefab.GetComponent<RectTransform>();
 
             // Calculate board start position
             var boardCenter = Camera.main.WorldToScreenPoint(CardContainer.position);
@@ -30,11 +34,16 @@ namespace DynamicNumber.GamePlay
 
         private void InitBoard()
         {
+            var cardCount = Constant.BOARD_SIZE_HEIGHT * Constant.BOARD_SIZE_WIDTH;
+            
+            var valueCardCount = cardCount * Constant.VALUE_CARD_PERCENTAGE;
+            var specialCardCount = cardCount - valueCardCount;
+            
             for (int yIndex = 0; yIndex < Constant.BOARD_SIZE_HEIGHT; yIndex++)
             {
                 for (int xIndex = 0; xIndex < Constant.BOARD_SIZE_WIDTH; xIndex++)
                 {
-                    var newCard = Instantiate(CardPrefab, CardContainer.transform);
+                    var newCard = Instantiate(ValueCardPrefab, CardContainer.transform);
 
                     // Generate Value card properties randomly
                     var valueType = (ValueCardType) Random.Range(0, System.Enum.GetValues(typeof(ValueCardType)).Length);

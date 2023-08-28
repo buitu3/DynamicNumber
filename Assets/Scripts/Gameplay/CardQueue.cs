@@ -25,6 +25,18 @@ namespace DynamicNumber.GamePlay
             return Queue.Count >= Constant.CARD_QUEUE_SIZE;
         }
 
+        private IEnumerator ActivateQueueRoutine()
+        {
+            while (Queue.Count > 0)
+            {
+                var card = Queue.Dequeue();
+                card.ActiveEffect();
+
+                yield return new WaitForSeconds(2f);
+            }
+        }
+
+
         #region Event Handlers
 
         private void OnCardUpflipHandler(Dictionary<string, object> param)
@@ -39,11 +51,11 @@ namespace DynamicNumber.GamePlay
 
                 if(IsQueueFull())
                 {
-
+                    StartCoroutine(ActivateQueueRoutine());
                 }
             }
         }
-
+        
         #endregion
     }
 }

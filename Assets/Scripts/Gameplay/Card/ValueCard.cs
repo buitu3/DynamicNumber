@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Ftech.Utilities;
 using UnityEngine;
 using TMPro;
 
@@ -34,17 +35,15 @@ namespace DynamicNumber.GamePlay
                         break;
                     }
             }
+
+            ValueType = type;
+            ValueAmount = amount;
         }
 
         public override void SetCardDown()
         {
             if (ValueText) ValueText.gameObject.SetActive(false);
             base.SetCardDown();
-        }
-
-        public override void UpFlip()
-        {
-            base.UpFlip();
         }
 
         public override void ShowContent()
@@ -54,6 +53,31 @@ namespace DynamicNumber.GamePlay
                 ValueText.gameObject.SetActive(true);
             }
             base.ShowContent();
+        }
+
+        public override void ActiveEffect()
+        {
+            var playerPoint = GameManager.Instance.PlayerCurrentValue;
+            
+            switch (ValueType)
+            {
+                case ValueCardType.multiply:
+                {
+                    playerPoint *= ValueAmount;
+                    break;
+                }
+                case ValueCardType.divide:
+                {
+                    playerPoint /= ValueAmount;
+                    break;
+                }
+            }
+            
+            var message = new Dictionary<string, object>();
+            message.Add(EventID.EVENT_DATA_KEY, playerPoint);
+            EventDispatcher.PostEvent(EventID.ON_PLAYER_POINT_CHANGE, message);
+
+            Destroy(this.gameObject);
         }
     }
 }
