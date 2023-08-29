@@ -56,6 +56,21 @@ namespace DynamicNumber.GamePlay
             }
         }
 
+        private List<EffectCard> GenerateValueCards(int amount)
+        {
+            List<EffectCard> result = new List<EffectCard>();
+            for (int i = 0; i < amount; i++)
+            {
+                var randomCardData =
+                    GameConfigManager.Instance.CardDatas.ValueCardLst[Random.Range(0, GameConfigManager.Instance.CardDatas.ValueCardLst.Count)];
+                var newCard = Instantiate(GameConfigManager.Instance.CardDatas.ValueCardPrefab,
+                    CardContainer.transform).GetComponent<ValueCard>();
+                result.Add(newCard);
+            }
+
+            return result;
+        }
+
         private Vector2 CalculateCardPos(int xIndex, int yIndex)
         {
             var result = Vector2.zero;
